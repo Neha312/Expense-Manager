@@ -8,27 +8,35 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Edit Form</title>
-
+    {{-- @include('layouts.navigation') --}}
 </head>
 
 <body>
     <h3 align="center">Edit Form</h3>
-    <form action="{{ route('updateAccount', $accounts->id) }}" method="POST">
+    <form action="{{ route('updateuserAccount', $accounts->id) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            {{-- <input type="hidden" class="form-control" id="id" name="id"
-                value="{{ $practice->id }}"> --}}
-            <input type="text" class="form-control" id="name" name="name" value="{{ $accounts->name }}">
-            @error('name')
+            <label for="bank_name" class="form-label">Bank Name</label>
+            <input type="text" class="form-control" id="bank_name" name="bank_name"
+                value="{{ $accounts->bank_name }}">
+            @error('bank_name')
                 <br> <span class="text-warning">{{ $message }}</span>
             @enderror
         </div>
         <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="text" class="form-control" id="email" name="email" value="{{ $accounts->email }}">
-            @error('email')
+            <label for="account_no" class="form-label">Account No</label>
+            <input type="number" class="form-control" id="account_no" name="account_no"
+                value="{{ $accounts->account_no }}">
+            @error('account_no')
+                <br> <span class="text-warning">{{ $message }}</span>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label for="iafc_code" class="form-label">IAFC Code</label>
+            <input type="text" class="form-control" id="iafc_code" name="iafc_code"
+                value="{{ $accounts->iafc_code }}">
+            @error('iafc_code')
                 <br> <span class="text-warning">{{ $message }}</span>
             @enderror
         </div>

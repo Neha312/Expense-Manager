@@ -6,8 +6,14 @@
 
         <button class="btn btn-light"><a href="{{ route('logout') }}"
                 class="text-sm text-gray-700 dark:text-gray-500 underline">Logout</a></button>
+        {{-- <button class="btn
+                btn-warning"><a href="{{ url('account') }}">Invite User</a></button>
+        <button class="btn btn-warning"><a href="{{ url('expense') }}">Expense Manager </a></button>
+        <button class="btn btn-warning"><a href="{{ url('accountUser') }}">User Account </a></button>
+        <button class="btn btn-warning"><a href="{{ url('transaction') }}">Transaction Manager </a></button> --}}
+        <button class="btn btn-warning"><a href="{{ url('show_user') }}">User List </a></button>
     @else
-        <button class="btn btn-light"><a href="{{ url('login') }}"
+        <button class="btn btn-light "><a href="{{ url('login') }}"
                 class="text-sm text-gray-700 dark:text-gray-500 underline">Login</a></button>
         @if (Route::has('register'))
             <button class="btn btn-light"><a href="{{ route('register') }}"
@@ -15,4 +21,5 @@
         @endif
     @endauth
     </div>
+
 @endif

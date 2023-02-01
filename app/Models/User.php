@@ -47,6 +47,6 @@ class User extends Authenticatable
     // }
     public function accounts()
     {
-        return $this->belongsToMany(Account::class);
+        return $this->belongsToMany(Account::class, 'account_user', 'user_id', 'account_id');
     }
 }

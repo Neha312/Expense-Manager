@@ -7,7 +7,9 @@ use App\Models\User;
 use App\Models\Account;
 use App\Models\Expense;
 use App\Mail\WelcomeMail;
+use App\Models\AccountUser;
 use App\Models\Transaction;
+use App\Models\Account_User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -82,10 +84,121 @@ class AuthController extends Controller
     }
     public function show_user()
     {
-        $users = User::all();
-        $account = Account::all();
-        return view('User.list', ['users' => $users]);
+        $user = auth()->user();
+        return view('User.list', ['user' => $user]);
     }
+    public function edit_user($id)
+    {
+        $user = User::find($id);
+        return view('User.editUser', ['user' => $user]);
+    }
+    public function update_user(Request $request, $id)
+    {
+        User::findOrFail($id)->update($request->only('name'));
+        return redirect('show_user')->with('status', 'User Account Updated Successfully !!');
+    }
+    public function delete_user($id)
+    {
+        User::destroy($id);
+        return redirect('show_user')->with('success', 'User Account Deleted Succesfully');
+    }
+
+    //account
+    public function show_account()
+    {
+        $accounts = auth()->user()->accounts()->get();
+        return view('Account.list', ['accounts' => $accounts]);
+    }
+    public function add_account()
+    {
+        return view('Account.index');
+    }
+    public function create_account(Request $request)
+    {
+
+        $request->validate([
+            'account_name' => 'required',
+            'balance' => 'required|numeric',
+            'type' => 'in:primary,secondary'
+        ]);
+
+        //insertion using create method
+        $account = Account::create([
+            'account_name' => $request->account_name,
+            'type' => $request->type,
+            'balance' => $request->balance
+
+        ]);
+
+        $account->users()->sync(auth()->user()->id);
+        return redirect('show_account',)->with('success', 'Account Created Succesfully');
+    }
+    public function edit_account($id)
+    {
+        $accounts = Account::find($id);
+        return view('Account.editAccount', ['accounts' => $accounts]);
+    }
+    public function update_account(Request $request, $id)
+    {
+        Account::findOrFail($id)->update($request->only('account_name', 'balance', 'type'));
+        return redirect('show_account')->with('status', ' Account Updated Successfully !!');
+    }
+    public function delete_account($id)
+    {
+        Account::destroy($id);
+        return redirect('show_account')->with('success', ' Account Deleted Succesfully');
+    }
+
+
+    //Transaction
+    public function show_transaction($id)
+    {
+        $transactions = Account::find($id)->transactions;
+        return view('Transaction.list', ['transactions' => $transactions]);
+    }
+
+    public function create_transaction(Request $request)
+    {
+        $id = Account::findOrFail(3);
+
+        $request->validate([
+            'category' => 'required',
+            'amount' => 'required|numeric',
+            'type' => 'in:expense,income,transfer',
+            'entry_date' => 'required|date'
+        ]);
+
+        //insertion using create method
+        $transaction        = Transaction::create([
+            'account_id'    => $id->id,
+            'category'      => $request->category,
+            'type'          => $request->type,
+            'amount'        => $request->amount,
+            'entry_date'    => $request->entry_date,
+        ]);
+        return redirect('show_transaction/' . $id->id)->with('success', 'transaction Created Succesfully');
+        // return redirect('create_transaction')->with('success', ' Account Deleted Succesfully');
+    }
+
+    public function edit_transaction($id)
+    {
+        $transaction = Transaction::find($id);
+        return view('Transaction.editTransaction', ['transactions' => $transaction]);
+    }
+    public function update_transaction(Request $request, $id)
+    {
+        Transaction::findOrFail($id)->update($request->only('category', 'amount', 'type', 'entry_date'));
+        return redirect('show_account')->with('status', ' Transaction Updated Successfully !!');
+    }
+    public function delete_transaction($id)
+    {
+        Transaction::destroy($id);
+        return redirect('show_account')->with('success', ' Transactiobn Deleted Succesfully');
+    }
+
+
+
+
     // //account crud
     // public function account()
     // {

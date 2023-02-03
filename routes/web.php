@@ -32,25 +32,60 @@ Route::group(['middleware' => 'guest'], function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::get('home', [AuthController::class, 'home'])->name('home');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+    //user route
     Route::get('show_user', [AuthController::class, 'show_user'])->name('show_user');
     Route::get('edit_user/{id}', [AuthController::class, 'edit_user'])->name('edit_user');
     Route::put('update_user/{id}', [AuthController::class, 'update_user'])->name('update_user');
     Route::get('delete_user/{id}', [AuthController::class, 'delete_user'])->name('delete_user');
 
-    //account
+    //account route
     Route::get('show_account', [AuthController::class, 'show_account'])->name('show_account');
     Route::post('create_account', [AuthController::class, 'create_account'])->name('create_account');
     Route::get('edit_account/{id}', [AuthController::class, 'edit_account'])->name('edit_account');
     Route::put('update_account/{id}', [AuthController::class, 'update_account'])->name('update_account');
     Route::get('delete_account/{id}', [AuthController::class, 'delete_account'])->name('delete_account');
 
-    //Transaction
-    Route::get('show_transaction/{id}', [AuthController::class, 'show_transaction']);
-    Route::post('create_transaction', [AuthController::class, 'create_transaction'])->name('create_transaction');
-    Route::get('edit_transaction/{id}', [AuthController::class, 'edit_transaction'])->name('edit_transaction');
-    Route::put('update_transaction/{id}', [AuthController::class, 'update_transaction'])->name('update_transaction');
-    Route::get('delete_transaction/{id}', [AuthController::class, 'delete_transaction'])->name('delete_transaction');
 
+    //UserTransaction
+    Route::get('view_transaction/{id}', [AuthController::class, 'view_transaction']);
+    Route::get('create_transaction', [AuthController::class, 'transactionPage']);
+    Route::post('save_transaction', [AuthController::class, 'create_transaction']);
+    Route::get('edit_transaction/{id}', [AuthController::class, 'edit_transaction']);
+    Route::put('update_transaction/{id}', [AuthController::class, 'update_transaction']);
+    Route::get('delete_transaction/{id}', [AuthController::class, 'delete_transaction']);
+    Route::get('show_user/{id}', [AuthController::class, 'show_user']);
+    Route::get('profile', [AuthController::class, 'profile']);
+    Route::get('invite_user', [AuthController::class, 'invite_user']);
+    Route::get('total_balance', [AuthController::class, 'total_balance']);
+    Route::get('total_transaction', [AuthController::class, 'total_transaction']);
+    Route::post('process_invites', [AuthController::class, 'process_invites']);
+    Route::get('add_user/{id}', [AuthController::class, 'add_user']);
+    Route::get('add_user_account', [AuthController::class, 'add_user_account']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //Transaction route
+    // Route::get('view_transaction', [AuthController::class, 'view_transaction'])->name('view_transaction');
+    // Route::get('show_transaction/{id}', [AuthController::class, 'show_transaction'])->name('show_transaction');
+    // Route::post('create_transaction', [AuthController::class, 'create_transaction'])->name('create_transaction');
+    // Route::get('edit_transaction/{id}', [AuthController::class, 'edit_transaction'])->name('edit_transaction');
+    // Route::put('update_transaction/{id}', [AuthController::class, 'update_transaction'])->name('update_transaction');
+    // Route::get('delete_transaction/{id}', [AuthController::class, 'delete_transaction'])->name('delete_transaction');
 
     //profile
     // Route::get('profile', [AuthController::class, 'profile'])->name('profile');

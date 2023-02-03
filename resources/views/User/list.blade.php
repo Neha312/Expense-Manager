@@ -29,6 +29,8 @@
                 <tr>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
+                    {{-- <td>{{ $account->account_name }}</td> --}}
+
                     <td>
                         <a href="{{ url('edit_user', $user->id) }}" class="btn btn-info btn-sm">Edit</a>
                         <a href="{{ url('delete_user', $user->id) }}" class="btn btn-danger btn-sm">Delete</a>

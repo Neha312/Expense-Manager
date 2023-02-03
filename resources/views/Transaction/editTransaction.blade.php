@@ -17,28 +17,27 @@
 
 <body>
     <h3 align="center">Edit Account</h3>
-    <form action="{{ route('update_transaction', $transactions->id) }}" method="POST">
+    <form action="{{ url('update_transaction', $transaction->id) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="mb-3">
             <label for="category" class="form-label">Category</label>
             <input type="text" class="form-control" id="category" name="category"
-                value="{{ $transactions->category }}">
+                value="{{ $transaction->category }}">
             @error('category')
                 <br> <span class="text-warning">{{ $message }}</span>
             @enderror
         </div>
         <div class="mb-3">
             <label for="type" class="form-label">Type</label>
-            <input type="text" class="form-control" id="type" name="type" value="{{ $transactions->type }}">
+            <input type="text" class="form-control" id="type" name="type" value="{{ $transaction->type }}">
             @error('type')
                 <br> <span class="text-warning">{{ $message }}</span>
             @enderror
         </div>
         <div class="mb-3">
             <label for="amount" class="form-label">Amount</label>
-            <input type="text" class="form-control" id="balance" name="balance"
-                value="{{ $transactions->amount }}">
+            <input type="text" class="form-control" id="balance" name="balance" value="{{ $transaction->amount }}">
             @error('amount')
                 <br> <span class="text-warning">{{ $message }}</span>
             @enderror
@@ -46,7 +45,7 @@
         <div class="mb-3">
             <label for="entry_date" class="form-label">Date</label>
             <input type="date" class="form-control" id="entry_date" name="entry_date"
-                value="{{ $transactions->entry_date }}">
+                value="{{ $transaction->entry_date }}">
             @error('entry_date')
                 <br> <span class="text-warning">{{ $message }}</span>
             @enderror
